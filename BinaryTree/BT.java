@@ -41,6 +41,12 @@ class Node<T> {
 	}
 }
 
+class secondLarg<T>
+{
+	T first;
+	T second;
+}
+
 public class BT {
 
 	public static Node<Integer> bstLLout(BTNode<Integer> root) {
@@ -233,12 +239,196 @@ public class BT {
 		boolean right = isBST3(root.right, root.data, max);
 		return left && right;
 	}
+	
+	
+	public static secondLarg<BTNode<Integer>> secondL(BTNode<Integer> root)
+	{
+		if(root==null)
+		{
+			secondLarg<BTNode<Integer>> s=new secondLarg();
+			s.first=null;
+			s.second=null;
+			return s;
+		}
+		
+		if(root.left==null && root.right==null)
+		{
+			secondLarg<BTNode<Integer>> s=new secondLarg();
+			s.first=root;
+			s.second=null;
+			return s;
+		}
+		
+		secondLarg<BTNode<Integer>> l=secondL(root.left);
+		secondLarg<BTNode<Integer>> s=new secondLarg();
+		s.first=root;
+		s.second=null;
+		if(s.first.data>l.first.data)
+		{
+			if(s.second==null && l.second==null)
+			{
+				s.second=l.first;
+			}
+			else if(l.second==null)
+			{
+				BTNode<Integer> max=null;
+				if(s.second.data>l.first.data)
+				{
+					max=s.second;
+				}
+				else
+				{
+					max=l.first;
+				}
+				s.second=max;
+			}
+			else if(s.second==null)
+			{
+				s.second=l.first;
+			}
+			else
+			{
+				BTNode<Integer> max=null;
+				if(s.second.data>l.first.data)
+				{
+					max=s.second;
+				}
+				else
+				{
+					max=l.first;
+				}
+				s.second=max;
+			}
+		}
+		else if(s.first.data<l.first.data)
+		{
+			BTNode<Integer> temp=s.first;
+			s.first=l.first;
+			if(s.second==null && l.second==null)
+			{
+				s.second=temp;
+			}
+			else if(l.second==null)
+			{
+				s.second=temp;
+			}
+			else if(s.second==null)
+			{
+				BTNode<Integer> max=null;
+				if(l.second.data>temp.data)
+				{
+					max=l.second;
+				}
+				else
+				{
+					max=temp;
+				}
+				s.second=max;
+				
+			}
+			else
+			{
+				BTNode<Integer> max=null;
+				if(s.second.data>temp.data)
+				{
+					max=s.second;
+				}
+				else
+				{
+					max=temp;
+				}
+				s.second=max;
+			}
+		}
+		secondLarg<BTNode<Integer>> r=secondL(root.right);
+		if(s.first.data>r.first.data)
+		{
+			if(s.second==null && r.second==null)
+			{
+				s.second=r.first;
+			}
+			else if(r.second==null)
+			{
+				BTNode<Integer> max=null;
+				if(s.second.data>r.first.data)
+				{
+					max=s.second;
+				}
+				else
+				{
+					max=r.first;
+				}
+				s.second=max;
+			}
+			else if(s.second==null)
+			{
+				s.second=r.first;
+			}
+			else
+			{
+				BTNode<Integer> max=null;
+				if(s.second.data>r.first.data)
+				{
+					max=s.second;
+				}
+				else
+				{
+					max=r.first;
+				}
+				s.second=max;
+			}
+		}
+		else if(s.first.data<r.first.data)
+		{
+			BTNode<Integer> temp=s.first;
+			s.first=r.first;
+			if(s.second==null && r.second==null)
+			{
+				s.second=temp;
+			}
+			else if(r.second==null)
+			{
+				s.second=temp;
+			}
+			else if(s.second==null)
+			{
+				BTNode<Integer> max=null;
+				if(r.second.data>temp.data)
+				{
+					max=r.second;
+				}
+				else
+				{
+					max=temp;
+				}
+				s.second=max;
+				
+			}
+			else
+			{
+				BTNode<Integer> max=null;
+				if(s.second.data>temp.data)
+				{
+					max=s.second;
+				}
+				else
+				{
+					max=temp;
+				}
+				s.second=max;
+			}
+		}
+		
+		return s;
+		
+		
+	}
 
 	public static void main(String args[]) {
 		Scanner in = new Scanner(System.in);
 		BTNode<Integer> root = takeInputIter(in);
 		printBTIter(root);
-		System.out.println(isBSTout(root));
+		//System.out.println(isBSTout(root));
 //		ArrayList<Integer> a=new ArrayList<Integer>();
 //		System.out.println(a.isEmpty());
 	}

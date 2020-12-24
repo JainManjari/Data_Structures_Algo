@@ -223,6 +223,99 @@ public class Graph {
 		
 	}
 	
+	public static boolean getConnectedBFS(int a[][])
+	{
+		boolean visited[]=new boolean[a.length];
+		
+		
+	   getConnectedBFSHelper(a,0,visited);
+		
+		
+		for(int i=0;i<a.length;i++)
+		{
+			if(!visited[i])
+			{
+				return false;
+			}
+		}
+		return true;
+		
+	}
+	
+	private static void getConnectedBFSHelper(int a[][],int vector,boolean visited[])
+	{
+		
+		Queue<Integer> q=new LinkedList<Integer>();
+		q.add(vector);
+		visited[vector]=true;
+		
+		while(!q.isEmpty())
+		{
+			int t=q.remove();
+			
+			for(int j=0;j<a.length;j++)
+			{
+				if(a[t][j]==1 && !visited[j])
+				{
+					q.add(j);
+					visited[j]=true;
+				}
+			}
+		}
+		
+	}
+	
+	
+	public static void returnConnectedGraphsBFS(int a[][])
+	{
+		boolean visited[]=new boolean[a.length];
+		
+		for(int i=0;i<a.length;i++)
+		{
+			for(int j=0;j<a.length;j++)
+			{
+				if(!visited[i])
+				{
+					ArrayList<Integer> a1=returnConnectedGraphsBFSHelper(a,i,visited);
+					for(int k=0;k<a1.size();k++)
+					{
+						System.out.print(a1.get(k)+" ");
+					}
+					System.out.println();
+				}
+			}
+		}
+	}
+	
+	private static ArrayList<Integer> returnConnectedGraphsBFSHelper(int a[][],int vector,boolean visited[])
+	{
+		visited[vector]=true;
+		Queue<Integer> q=new LinkedList<Integer>();
+		q.add(vector);
+		
+		ArrayList<Integer> a1=new ArrayList<Integer>();
+		
+		
+		while(!q.isEmpty())
+		{
+			int t=q.remove();
+			a1.add(t);
+			
+			for(int j=0;j<a.length;j++)
+			{
+				if(a[t][j]==1 && !visited[j])
+				{
+					q.add(j);
+					visited[j]=true;
+				}
+			}
+		}
+		
+		
+		
+		return a1;
+	}
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
