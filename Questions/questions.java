@@ -28,8 +28,9 @@ public class questions {
 		System.out.println(findMax(a2,0,a2.length-1));
 		
 		
+		int one='8'-'0';
 
-		
+		System.out.println((char)(one+97));
 				
 	}
 	
