@@ -2,6 +2,20 @@ package BinaryTree;
 
 import java.util.*;
 
+class Q
+{
+    BTNode<Integer> root;
+    int hd;
+    
+    public Q(){};
+    
+    public Q(BTNode<Integer> root,int hd)
+    {
+        this.root=root;
+        this.hd=hd;
+    }
+}
+
 class BTNode<T> {
 	public T data;
 	public BTNode<T> left;
@@ -422,7 +436,87 @@ public class BT {
 		return s;
 		
 		
+		
 	}
+	
+	
+	
+	//VERTICAL TRANSVERSAL OF A TREE
+	/*
+	 * 
+	 *     
+	 * 
+	 * 
+	 */
+	
+	public ArrayList<Integer> verticalOrder(BTNode<Integer> root)
+    {
+        // add your code here
+        TreeMap<Integer,ArrayList<Integer>> map=new TreeMap();
+        
+        vert(root,0,map);
+        
+        ArrayList<Integer> a=new ArrayList();
+        
+        for(Integer key:map.keySet())
+        {
+            ArrayList<Integer> b=map.get(key);
+            for(int i=0;i<b.size();i++)
+            {
+                a.add(b.get(i));
+            }
+        }
+        return a;
+        
+        
+    }
+    
+    static void vert(BTNode<Integer> root,int HD ,TreeMap<Integer,ArrayList<Integer>> map)
+    {
+        if(root==null)
+        {
+            return;
+        }
+        Queue<Q> q=new LinkedList();
+        
+        Q q1=new Q(root,HD);
+        
+        q.add(q1);
+        
+        while(!q.isEmpty())
+        {
+            Q t=q.remove();
+            int hd=t.hd;
+            
+            if(!map.containsKey(hd))
+            {
+                ArrayList<Integer> a=new ArrayList<>();
+                a.add(t.root.data);
+                map.put(hd,a);
+            }
+            else
+            {
+                ArrayList<Integer> a=map.get(hd);
+                a.add(t.root.data);
+                map.put(hd,a);
+            }
+            
+            if(t.root.left!=null)
+            {
+                Q t1=new Q(t.root.left,hd-1);
+                q.add(t1);
+            }
+            if(t.root.right!=null)
+            {
+                Q t1=new Q(t.root.right,hd+1);
+                q.add(t1);
+            }
+            
+        }
+    
+        
+    }
+
 
 	public static void main(String args[]) {
 		Scanner in = new Scanner(System.in);

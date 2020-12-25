@@ -1,6 +1,8 @@
-import java.util.*;
+package Questions;
 
-public class maxsum_nonadjacent_limit {
+import java.util.Scanner;
+
+public class max_sum_non_adja_array {
 
 	public static void main (String args[])
 	{

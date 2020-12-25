@@ -1,10 +1,12 @@
-import java.util.*;
+package Questions;
+
+import java.util.Scanner;
 public class strBackTrackAlg {
 	
 	public static void main(String args[])
 	{
 		Scanner in=new Scanner(System.in);
-		//_+_-_=10;
+		//_+_-_=10
 		String s=in.nextLine();
 		int n=s.length();
 		String a[]=new String[n];

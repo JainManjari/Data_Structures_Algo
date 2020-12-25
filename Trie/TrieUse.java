@@ -2,6 +2,7 @@ package Trie;
 
 import java.util.*;
 
+
 class TrieNode
 {
 	char data;
@@ -158,6 +159,29 @@ class Trie
 		
 	}
 	
+	public void print() {
+		print(this.root, "");
+	}
+	
+	private void print(TrieNode root, String word) {
+		if (root == null) {
+			return;
+		}
+		
+		if (root.isTerminating) {
+			System.out.println(word);
+		}
+		
+		for (TrieNode child : root.children) {
+			if (child == null) {
+				continue;
+			}
+			String fwd = word + child.data;
+			print(child, fwd);
+		}
+	}
+	
+	
 }
 public class TrieUse {
 
@@ -172,6 +196,8 @@ public class TrieUse {
 	    t.delete("news");
 	    System.out.println(t.search("news"));
 	    System.out.println(t.numWords);
+	    
+	    t.print();
 
 	}
 
