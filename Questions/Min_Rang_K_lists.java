@@ -3,7 +3,7 @@ package Questions;
 import java.util.*;
 
 
-class info
+class infor
 {
 	int listNo;
 	int listIndex;
@@ -12,9 +12,9 @@ class info
 	
 }
 
-class minC implements Comparator<info>
+class minC implements Comparator<infor>
 {
-	public int compare(info c1,info c2)
+	public int compare(infor c1,infor c2)
 	{
 		if(c1.listElement>c2.listElement)
 		{
@@ -29,9 +29,9 @@ class minC implements Comparator<info>
 }
 
 
-class maxC implements Comparator<info>
+class maxC implements Comparator<infor>
 {
-	public int compare(info c1,info c2)
+	public int compare(infor c1,infor c2)
 	{
 		if(c1.listElement>c2.listElement)
 		{
@@ -92,13 +92,13 @@ public class Min_Rang_K_lists {
 		int ran=Integer.MAX_VALUE;
 		
 		
-		PriorityQueue<info> min=new PriorityQueue(new minC());
-		PriorityQueue<info> max=new PriorityQueue(new maxC());
+		PriorityQueue<infor> min=new PriorityQueue(new minC());
+		PriorityQueue<infor> max=new PriorityQueue(new maxC());
 		
 		for(int i=0;i<a.size();i++)
 		{
 			ArrayList<Integer> b=a.get(i);
-			info i1=new info();
+			infor i1=new infor();
 			i1.listElement=b.get(0);
 			i1.listIndex=0;
 			i1.listNo=i;
@@ -140,7 +140,7 @@ public class Min_Rang_K_lists {
 				max.remove(min.peek());
 				min.remove();
 				
-				info i1=new info();
+				infor i1=new infor();
 				i1.listElement=a.get(listNo).get(listIndex);
 				i1.listIndex=listIndex;
 				i1.listNo=listNo;

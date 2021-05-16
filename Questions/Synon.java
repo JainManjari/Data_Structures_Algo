@@ -18,7 +18,7 @@ public class Synon {
 		Scanner in=new Scanner(System.in);
 		/*
 		 * 
-		 *  7
+		 *  13
 			ram shyam 
 			sita gita
 			ram rahul
@@ -26,6 +26,12 @@ public class Synon {
 			rahul vaibhav
 			shyam mansi
 			mansi jhansi
+			harry potter
+			ginny potter
+			hermoine granger
+			ron weasley
+			rose weasley
+			albus potter
 		 */
 		
 		// no of pairs for a syn class
@@ -62,10 +68,12 @@ public class Synon {
 		}
 		
 		
-//		for(String key:map.keySet())
-//		{
-//			System.out.println(key+" "+map.get(key));
-//		}
+		System.out.println("count "+count);
+		
+		for(String key:map.keySet())
+		{
+			System.out.println(key+" "+map.get(key));
+		}
 		
 		int parent[]=new int[count];
 		
@@ -89,7 +97,7 @@ public class Synon {
 
 		
 		//the word to find syno
-		String word="karan";
+		String word="potter"; //harry
 		
 		if(map.containsKey(word))
 		{

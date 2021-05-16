@@ -21,16 +21,16 @@ public class questions {
 		
 		
 		//         0,1,2,3,4,5, 6, 7,8,9
-		int a2[]= {26,23,22,14,5,6,4}; //{30, 40, 50, 10, 20};
+		int a2[]= {40,45,50,56,63,22,25,35,46,54}; //{30, 40, 50, 10, 20};
 		int K=30;
 		System.out.println(find(a2,0,a2.length-1,K));
 		System.out.println(findPivot(a2, 0, a2.length-1));
 		System.out.println(findMax(a2,0,a2.length-1));
 		
 		
-		int one='8'-'0';
+		long one=Long.valueOf("-1");
 
-		System.out.println((char)(one+97));
+		System.out.println(one);
 				
 	}
 	
@@ -64,11 +64,15 @@ public class questions {
 			return -1;
 		}
 		int mid=(s+e)/2;
-		if(a[mid]>a[mid+1])
+		if(mid<e && a[mid]>a[mid+1])
 		{
 			return mid+1;
 		}
-		if(a[s]<=a[mid])
+		if(mid>s && a[mid-1]>a[mid])
+		{
+			return mid;
+		}
+		if(a[s]<a[mid])
 		{
 			return findPivot(a,mid+1,e);
 		}
