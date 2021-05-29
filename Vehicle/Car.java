@@ -1,6 +1,6 @@
 package Vehicle;
 
-public abstract class Car extends Vehicle {
+public class Car extends Vehicle {
 	
 	int numGears;
 	boolean isConvertible;
@@ -22,7 +22,7 @@ public abstract class Car extends Vehicle {
 		return isConvertible;
 	}
 
-	@Override
+
 	public boolean isMotorised() {
 		// TODO Auto-generated method stub
 		return false;
@@ -30,10 +30,10 @@ public abstract class Car extends Vehicle {
 
 	
 
-//	public void print() // to rectify it rename it to printCar() or remove final from Vehicle print
-//	{
-//		super.print();
-//		System.out.println("Car Description:"+" "+this.numGears+" "+this.isConvertible);
-//	}
+	public void print() // to rectify it rename it to printCar() or remove final from Vehicle print
+	{
+		//super.print();
+		System.out.println("Car Description:"+" "+this.numGears+" "+this.isConvertible);
+	}
 
 }

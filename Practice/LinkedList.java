@@ -3,72 +3,31 @@ import java.util.*;
 
 class Node<T>
 {
-	public T data;
-	public Node<T> next;
+	T data;
+	Node<T> next;
 	
 	public Node(T data)
 	{
 		this.data=data;
-		this.next=null;
+		next=null;
 	}
-	
-	
-}
-
-class DoubleNode<T>
-{
-	T head;
-	T tail;
 }
 
 public class LinkedList {
 	
+	Node<Integer> head;
+	Node<Integer> tail;
 	
-	private static Node<Integer> insertIt(Scanner in)
+	public LinkedList()
 	{
-		int data=in.nextInt();
-		Node<Integer> head=null;
-		Node<Integer>tail=null;
-		
-		while(data!=-1)
-		{
-			Node<Integer> newnode=new Node<>(data);
-			if(head==null)
-			{
-				head=newnode;
-				tail=newnode;
-			}
-			tail.next=newnode;
-			tail=newnode;
-			data=in.nextInt();
-		}
-		return head;
+		this.head=null;
+		this.tail=null;
 	}
 	
-	private static Node<Integer> insert(Node<Integer> head,int data)
+	public void print()
 	{
-		Node<Integer> newnode=new Node<>(data);
-		Node<Integer> h1=null;
-		
-		
-		if(head==null)
-		{
-			h1=newnode;
-			return h1;
-		}
-		Node<Integer> t1=head;
-		
-		while(t1.next!=null)
-		{
-			t1=t1.next;
-		}
-		t1.next=newnode;
-		return h1;
-	}
-	
-	private static void printIt(Node<Integer> head)
-	{
-		Node<Integer> temp=head;
+		Node<Integer> temp=this.head;
+		System.out.println("print func");
 		
 		while(temp!=null)
 		{
@@ -78,82 +37,73 @@ public class LinkedList {
 		System.out.println();
 	}
 	
-	public static Node<Integer> middle(Node<Integer> head)
+	public void takeInputItr(Scanner in)
 	{
-		Node<Integer> slow=head;
-		Node<Integer> fast=head;
+		System.out.println("Enter data: ");
+		int data=in.nextInt();
 		
-		while(fast!=null)
+		while(data!=-1)
 		{
-			if(fast.next==null || fast.next.next==null)
+			Node<Integer> newnode=new Node(data);
+			if(this.head==null)
 			{
-				return slow;
+				this.head=newnode;
+				this.tail=newnode;
 			}
-			slow=slow.next;
-			fast=fast.next.next;
+			else
+			{
+				this.tail.next=newnode;
+				this.tail=newnode;
+			}
+			System.out.println("Enter data: ");
+			data=in.nextInt();
 		}
-		return slow;
 	}
 	
-	
-	public static Node<Integer> reverse(Node<Integer> head)
+	public void takeInputEle(int data)
 	{
-		if(head==null || head.next==null)
+		Node<Integer> newnode=new Node(data);
+		if(this.head==null)
 		{
-			return head;
+			this.head=newnode;
+			this.tail=newnode;
 		}
-		Node<Integer> t=head.next;
-		Node<Integer> nh=reverse(head.next);
-		t.next=head;
-		head.next=null;
-		return nh;
+		else
+		{
+			this.tail.next=newnode;
+			this.tail=newnode;
+		}
 	}
 	
-	public static DoubleNode<Node<Integer>> reverse2(Node<Integer> head)
+	public void printReverse(Node head)
 	{
 		if(head==null)
 		{
-			DoubleNode<Node<Integer>> a=new DoubleNode();
-			a.head=null;
-			a.tail=null;
-			return a;
+			return;
 		}
 		if(head.next==null)
 		{
-			DoubleNode<Node<Integer>> a=new DoubleNode();
-			a.head=head;
-			a.tail=head;
-			return a;
+			System.out.print(head.data+" ");
+			return;
 		}
-		DoubleNode<Node<Integer>> a =reverse2(head.next);
-		a.tail.next=head;
-		a.tail=head;
-		head.next=null;
-		return a;
+		printReverse(head.next);
+		System.out.print(head.data+" ");
+	
 	}
 	
-	public static void main(String args[])
-	{
-		
-		//1 2 3 4 5 6 7 18 19 -1
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
 		Scanner in=new Scanner(System.in);
-//		Node<Integer> head=insert(null,6);;
-//		insert(head,7);
-//		insert(head,8);
-//		printIt(head);
-		Boolean a=true;
-		
-		Node<Integer> head=insertIt(in);
-		//printIt(head);
-		//printIt(middle(head));
-		
-		printIt(reverse2(head).head);
-		
-		
-		//Ordered Maps
-		//LinkedHashMap<Integer,Integer> map=new LinkedHashMap<Integer, Integer>();
-		
-		
+        LinkedList l=new LinkedList();
+        l.takeInputItr(in);
+        l.print();
+        l.printReverse(l.head);
+        //System.out.println(l.head.data+" "+l.tail.data);
+//        l.takeInputEle(56);
+//        l.print();
+//        System.out.println(l.head.data+" "+l.tail.data);
+        
+        
 	}
 
 }

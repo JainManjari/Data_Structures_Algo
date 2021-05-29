@@ -25,6 +25,32 @@ class DoubleNode<T>
 
 public class LinkedList {
 	
+	public static void lastNode(Node<Integer> head,int n)
+	{
+		if(head==null)
+		{
+			return;
+		}
+		Node<Integer> first=head;
+		for(int i=0;i<n;i++)
+		{
+			if(first==null)
+			{
+				return;
+			}
+			first=first.next;
+		}
+		Node<Integer> second=head;
+		
+		while(first!=null)
+		{
+			first=first.next;
+			second=second.next;
+		}
+		
+		System.out.println("Last "+n+"th Node is "+second.data);
+	}
+	
 	public static void print(Node<Integer> head)
 	{
 		Node<Integer> temp=head;
@@ -544,13 +570,55 @@ public class LinkedList {
 	    	}
 	    	return head;
 	    }
+	    
+    public static void detectLoop(Node<Integer> head)
+    {
+    	if(head==null || head.next==null)
+    	{
+    		System.out.println("No Loop");
+    		return;
+    	}
+    	if(head.next==head)
+    	{
+    		head.next=null;
+    		return;
+    	}
+    	Node<Integer> slow=head;
+    	Node<Integer> fast=head;
+    	
+    	while(fast!=null && fast.next!=null)
+    	{
+    		slow=slow.next;
+    		fast=fast.next.next;
+    		
+    		if(slow==fast)
+    		{
+    			break;
+    		}
+    	}
+    	
+    	if(slow!=fast)
+    	{
+    		System.out.println("No Loop");
+    		return;
+    	}
+    	System.out.println("Loop Detected");
+    	slow=head;
+    	while(slow.next!=fast.next)
+    	{
+    		slow=slow.next;
+    		fast=fast.next;
+    	}
+    	fast.next=null;
+    	return;
+    }
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
 //		5 20 34 56 78 90
 		Scanner in=new Scanner(System.in);
-		Node<Integer> head1=takeInput(in);
+		//Node<Integer> head1=takeInput(in);
 		//Node<Integer> head2=takeInput(in);
 		//head=reverseI(head);
 		//Node<Integer> h1=insertPosIt(head,2,50);
@@ -563,15 +631,26 @@ public class LinkedList {
 //			head=insert(head,a[i]);
 //		}
 		//print(head);
-		print(head1);
+		//print(head1);
 		//System.out.println(middle(head1).data);
 		//print(swap_nodes(head1,4,2));
-		print(kReverse(head1,4));
+		//print(kReverse(head1,4));
 		//print(head2);
 	//	System.out.println();
 		//Node<Integer> head3=merge(head1,head2);
 		
 		//print(head3);
+		
+		Node<Integer> head=new Node<Integer>(10);
+		head.next=new Node<Integer>(15);
+		head.next.next=new Node(20);
+		head.next.next.next=new Node(21);
+		head.next.next.next.next=new Node(22);
+		head.next.next.next.next.next=head.next.next;//head.next;
+		
+		detectLoop(head);
+		
+		print(head);
 
 	}
 	

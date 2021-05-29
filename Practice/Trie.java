@@ -3,19 +3,18 @@ import java.util.*;
 
 class TrieNode
 {
-	char data;
-	boolean isTerminating;
-	TrieNode children[];
-	int childCount;
-	
-	public TrieNode(char data)
-	{
-		this.data=data;
-		this.children=new TrieNode[26];
-		this.isTerminating=false;
-		this.childCount=0;
-		
-	}
+     char data;
+     boolean isTerminating;
+     int childCount;
+     TrieNode children[];
+     
+     public TrieNode(char data)
+     {
+    	 this.data=data;
+    	 isTerminating=false;
+    	 childCount=0;
+    	 children=new TrieNode[26];
+     }
 }
 
 
@@ -27,55 +26,70 @@ public class Trie {
 	
 	public Trie()
 	{
-		root=new TrieNode('\0');
+		this.root=new TrieNode('\0');
+		this.numWords=0;
 	}
-    
-	
-	
 	
 	public void insert(String word)
 	{
-		if(insertHelper(word, root))
+		if(insert(root,word))
 		{
-			numWords++;
+			this.numWords++;
 		}
 	}
 	
-	private boolean insertHelper(String word,TrieNode root)
+	public boolean insert(TrieNode root,String word)
 	{
 		if(word.length()==0)
 		{
-			if(!root.isTerminating)
-			{
-				root.isTerminating=true;
-				return true;
-			}
-			return false;
+			root.isTerminating=true;
+			return true;
 		}
-		
 		int childI=word.charAt(0)-'a';
-		
 		TrieNode child=root.children[childI];
-		
 		if(child==null)
 		{
 			child=new TrieNode(word.charAt(0));
 			root.children[childI]=child;
 			root.childCount++;
 		}
-		return insertHelper(word.substring(1),child);
+		return insert(child,word.substring(1));
 	}
 	
-	
-	
-	
-	
-	public boolean searchWord(String word)
+	public void print()
 	{
-		return searchWordHelper(word,root);
+		printHelper(this.root,"");
 	}
 	
-	private boolean searchWordHelper(String word,TrieNode root)
+	public void printHelper(TrieNode root,String out)
+	{
+		if(root.childCount==0 && !root.isTerminating)
+		{
+			return;
+		}
+		
+		if(root.isTerminating)
+		{
+			System.out.println(out);
+		}
+		
+		for(int i=0;i<root.children.length;i++)
+		{
+			TrieNode child=root.children[i];
+			if(child!=null)
+			{
+				//System.out.println("child "+child.data);
+				printHelper(child, out+child.data);
+			}
+		}
+	}
+	
+	public boolean search(String word)
+	{
+		return searchHelper(this.root,word);
+	}
+	
+	public boolean searchHelper(TrieNode root,String word)
 	{
 		if(word.length()==0)
 		{
@@ -83,27 +97,24 @@ public class Trie {
 		}
 		
 		int childI=word.charAt(0)-'a';
-		
 		TrieNode child=root.children[childI];
-		
-		if(child!=null)
+		if(child==null)
 		{
-			return searchWordHelper(word.substring(1),child);
+			return false;
 		}
-		return false;
-		
+		return searchHelper(child, word.substring(1));
 	}
-	
 	
 	public void delete(String word)
 	{
-		if(deleteHelper(word,root))
+		if(deleteHelper(this.root, word))
 		{
-			numWords--;
+			this.numWords--;
 		}
 	}
 	
-	private boolean deleteHelper(String word,TrieNode root)
+	
+	public boolean deleteHelper(TrieNode root,String word)
 	{
 		if(word.length()==0)
 		{
@@ -113,51 +124,21 @@ public class Trie {
 				return true;
 			}
 			return false;
-			
 		}
-		
 		int childI=word.charAt(0)-'a';
-		
 		TrieNode child=root.children[childI];
-		boolean ans=deleteHelper(word.substring(1),child);
-		//We can only delete a node if it is non terminating and child chount is 0;
-		
-		if(!child.isTerminating && child.childCount==0)
+		if(child==null)
 		{
-			child=null;
+			return false;
+		}
+		boolean ans=deleteHelper(child,word.substring(1));
+		if(root.childCount==0 && !root.isTerminating)
+		{
 			root.children[childI]=null;
 			root.childCount--;
 		}
-		
 		return ans;
-		
 	}
-	
-	public void print() {
-		print(this.root, "");
-	}
-	
-	private void print(TrieNode root, String word) {
-		if (root == null) {
-			return;
-		}
-		
-		if (root.isTerminating) {
-			System.out.println(word);
-		}
-		
-		for (TrieNode child : root.children) {
-			if (child == null) {
-				continue;
-			}
-			String fwd = word + child.data;
-			print(child, fwd);
-		}
-	}
-	
-	
-	
-	
 	
 	public static void main(String args[])
 	{
@@ -165,19 +146,44 @@ public class Trie {
 		String word="hello";
 		String word2="world";
 		String word3="hell";
+		String word4="word";
 		root.insert(word);
 		root.insert(word2);
 		root.insert(word3);
-		System.out.println(root.searchWord(word));
-		System.out.println(root.searchWord("rose"));
-		
-		root.delete(word3);
-		
-		System.out.println(root.searchWord(word3));
-		System.out.println(root.searchWord(word));
-		
+		root.insert(word4);
+		root.insert("foggy");
+		root.insert("fog");
+		root.insert("art");
+		root.insert("alice");
 		System.out.println(root.numWords);
+		root.print();
 		
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		
+		
+		System.out.println(root.search(word));
+		System.out.println(root.search("rose"));
+		System.out.println(root.search("music"));
+		System.out.println(root.search("fog"));
+		
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		
+		root.delete("art");
+		System.out.println("search after delete "+root.search(word3));
+		root.delete("foggy");
+		System.out.println("search after delete "+root.search("foggy"));
+//		System.out.println(root.searchWord(word));
+//		
+//		System.out.println(root.numWords);
+//		
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println(root.numWords);
 		root.print();
 	}
 }

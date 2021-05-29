@@ -10,9 +10,9 @@ public class VehicleUse {
 		v1.setMaxSpeed(100);
 		v1.print();
 		
-		//Vehicle v=new Car(10,20);
+		Vehicle v=new Car(10,20);
 		//v.isMotorised();
-		//v.print();
+		v.print();
 		
 		//v.setMaxSpeed(4);
 		

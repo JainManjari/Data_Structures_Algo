@@ -148,7 +148,7 @@ public class HashMap {
 
 	public static void main(String[] args) {
 	   Map<Integer,Integer> map=new Map();
-	   
+
 	   for(int i=1;i<=20;i++)
 	   {
 		   map.put(i, i-1);

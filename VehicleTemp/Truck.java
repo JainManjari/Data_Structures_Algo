@@ -16,13 +16,13 @@ public class Truck extends Vehicle {
 		System.out.println("Truck Des: "+this.maxCapacity+" "+this.getMaxSpeed()+" "+this.color);
 	}
 
-	@Override
+
 	public boolean isMotorised() {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
+
 	public String companyName() {
 		// TODO Auto-generated method stub
 		return null;
